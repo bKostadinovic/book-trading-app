@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Profile</title></head>
+<body>
+  <h1>Profile Settings</h1>
+  <form action="/profile" method="POST">
+    <input name="name" value="<%= settings.name || '' %>" placeholder="Full Name" required><br>
+    <input name="city" value="<%= settings.city || '' %>" placeholder="City" required><br>
+    <input name="state" value="<%= settings.state || '' %>" placeholder="State" required><br>
+    <button>Save</button>
+  </form>
+
+  <a href="/books">← Back to Books</a>
+</body>
+</html>

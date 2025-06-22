@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><title>Books</title></head>
+<body>
+  <h1>All Books</h1>
+
+  <form action="/books" method="POST">
+    <input name="title" placeholder="Book Title" required />
+    <button>Add Book</button>
+  </form>
+
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <%= book.title %> — Owner: <%= book.owner %>
+        <% if (user && user !== book.owner) { %>
+          <form action="/trade/<%= book.id %>" method="POST" style="display:inline;">
+            <button>Propose Trade</button>
+          </form>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <h2>Pending Trades</h2>
+  <ul>
+    <% trades.forEach(trade => {
+      if (trade.to === user && trade.status === 'pending') { %>
+        <li><%= trade.from %> wants "<%= books.find(b => b.id === trade.bookId)?.title %>"
+          <form action="/accept/<%= trade.bookId %>" method="POST" style="display:inline;">
+            <button>Accept</button>
+          </form>
+        </li>
+    <% }}) %>
+  </ul>
+
+  <a href="/profile">My Profile</a>
+  <form action="/logout" method="POST"><button>Logout</button></form>
+</body>
+</html>
